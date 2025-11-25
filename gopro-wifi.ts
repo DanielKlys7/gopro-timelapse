@@ -122,20 +122,24 @@ export class GoProWiFi {
               const baseName = file.n;
               const totalGroupSize = file.s;
               let isFirstInGroup = true;
-              
+
               // Extract group ID and extension from filename
               // Format: GXXXYYYY.ZZZ where XXX is group ID, YYY is member ID, ZZZ is extension
               const match = baseName.match(/^G(\d{3})(\d{4})\.(.+)$/);
-              
+
               if (match) {
                 const groupId = match[1];
                 const extension = match[3];
-                
+
                 // Generate all individual filenames for the group
-                for (let memberId = firstMemberId; memberId <= lastMemberId; memberId++) {
-                  const memberIdStr = memberId.toString().padStart(4, '0');
+                for (
+                  let memberId = firstMemberId;
+                  memberId <= lastMemberId;
+                  memberId++
+                ) {
+                  const memberIdStr = memberId.toString().padStart(4, "0");
                   const fileName = `G${groupId}${memberIdStr}.${extension}`;
-                  
+
                   files.push({
                     folder: folder,
                     name: fileName,
@@ -146,12 +150,14 @@ export class GoProWiFi {
                     groupId: groupId,
                     groupMemberId: memberIdStr,
                   });
-                  
+
                   isFirstInGroup = false;
                 }
               } else {
                 // Fallback if filename doesn't match expected pattern
-                console.warn(`Grouped file doesn't match expected pattern: ${baseName}`);
+                console.warn(
+                  `Grouped file doesn't match expected pattern: ${baseName}`
+                );
                 files.push({
                   folder: folder,
                   name: file.n,

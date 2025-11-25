@@ -156,20 +156,23 @@ program
           console.log(`📷 Camera: ${ip}`);
           const files = await camera.getMediaList();
 
-          if (files.length === 0) {          console.log("  No files found\n");
-        } else {
-          console.log(`  Found ${files.length} file(s):`);
-          files.forEach((file, index) => {
-            // Only show size for non-zero sizes (grouped items show size only on first file)
-            if (file.size > 0) {
-              const sizeMB = (file.size / 1024 / 1024).toFixed(2);
-              console.log(`    ${index + 1}. ${file.name} (${sizeMB} MB - cała grupa)`);
-            } else {
-              console.log(`    ${index + 1}. ${file.name}`);
-            }
-          });
-          console.log("");
-        }
+          if (files.length === 0) {
+            console.log("  No files found\n");
+          } else {
+            console.log(`  Found ${files.length} file(s):`);
+            files.forEach((file, index) => {
+              // Only show size for non-zero sizes (grouped items show size only on first file)
+              if (file.size > 0) {
+                const sizeMB = (file.size / 1024 / 1024).toFixed(2);
+                console.log(
+                  `    ${index + 1}. ${file.name} (${sizeMB} MB - cała grupa)`
+                );
+              } else {
+                console.log(`    ${index + 1}. ${file.name}`);
+              }
+            });
+            console.log("");
+          }
         } catch (error) {
           console.log(
             `  ✗ Failed: ${error instanceof Error ? error.message : error}\n`
@@ -208,24 +211,24 @@ program
           console.log(
             `  Downloading ${files.length} file(s) to ${outputDir}...`
           );
-        for (const file of files) {
-          try {
-            await camera.downloadFile(file.folder, file.name, outputDir);
-            // Only show size for non-zero sizes (grouped items show size only on first file)
-            if (file.size > 0) {
-              const sizeMB = (file.size / 1024 / 1024).toFixed(2);
-              console.log(`    ✓ ${file.name} (${sizeMB} MB - cała grupa)`);
-            } else {
-              console.log(`    ✓ ${file.name}`);
+          for (const file of files) {
+            try {
+              await camera.downloadFile(file.folder, file.name, outputDir);
+              // Only show size for non-zero sizes (grouped items show size only on first file)
+              if (file.size > 0) {
+                const sizeMB = (file.size / 1024 / 1024).toFixed(2);
+                console.log(`    ✓ ${file.name} (${sizeMB} MB - cała grupa)`);
+              } else {
+                console.log(`    ✓ ${file.name}`);
+              }
+            } catch (error) {
+              console.log(
+                `    ✗ ${file.name}: ${
+                  error instanceof Error ? error.message : error
+                }`
+              );
             }
-          } catch (error) {
-            console.log(
-              `    ✗ ${file.name}: ${
-                error instanceof Error ? error.message : error
-              }`
-            );
           }
-        }
           console.log("");
         } catch (error) {
           console.log(
