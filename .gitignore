@@ -8,3 +8,15 @@ downloads/
 *.jpg
 *.jpeg
 *.raw
+
+# Python virtual environment
+.venv-gopro/
+*.pyc
+__pycache__/
+
+# Configuration files with sensitive data
+cohn-config.json
+s3-config.json
+
+# Test files
+test-*.ts

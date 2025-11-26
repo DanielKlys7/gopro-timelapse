@@ -11,7 +11,10 @@
     "stop-timelapse": "ts-node index.ts stop-timelapse",
     "list-files": "ts-node index.ts list-files",
     "download-files": "ts-node index.ts download-files",
-    "delete-files": "ts-node index.ts delete-files"
+    "upload-files": "ts-node index.ts upload-files",
+    "delete-files": "ts-node index.ts delete-files",
+    "clean-local": "ts-node index.ts clean-local",
+    "test-notifications": "ts-node test-notifications.ts"
   },
   "keywords": [],
   "author": "",
@@ -19,8 +22,11 @@
   "description": "GoPro Hero 12 Black Controller",
   "dependencies": {
     "@abandonware/noble": "^1.9.2-15",
+    "@aws-sdk/client-s3": "^3.940.0",
+    "@aws-sdk/lib-storage": "^3.940.0",
     "axios": "^1.7.9",
     "commander": "^12.1.0",
+    "dotenv": "^17.2.3",
     "node-cron": "^4.2.1"
   },
   "devDependencies": {
